@@ -11,7 +11,6 @@ async function main() {
   } catch (err) {
     console.error(err);
   }
-
 }
 
-main()
+main();
