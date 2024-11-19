@@ -1,4 +1,4 @@
-import { Schema, model, connect } from 'mongoose';
+
 
 export type Guardian = {
     fatherName: string;
@@ -24,7 +24,7 @@ export type LocalGuardian ={
 
 export type Student = {
     id : string;
-    name: UserVerificationRequirement;
+    name: UserName;
     gender: "Male" | "Female";
     dateOfBirth?: string;
     email: string;
