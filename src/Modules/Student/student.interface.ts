@@ -9,15 +9,24 @@ export type Guardian = {
     motherContactNo: string;
 }
 
+export type UserName = {
+    firstName: string;
+    middleName?: string;
+    lastName: string;
+};
+
+export type LocalQuardian ={
+    name: string;
+    occupation: string;
+    contactNo: string;
+    address: string;
+}
+
 export type Student = {
     id : string;
-    name: {
-        firstName: string;
-        middleName?: string;
-        lastName: string;
-    };
+    name: UserVerificationRequirement;
     gender: "Male" | "Female";
-    dateOfBirth: string;
+    dateOfBirth?: string;
     email: string;
     contactNo: string;
     emergencyContact: string;
@@ -25,6 +34,9 @@ export type Student = {
     presentAddress: string;
     permanentAddress: string;
     guardian: Guardian;
+    localGuardian: LocalQuardian;
+    profileImg? : string;
+    isActive: 'active' | 'blocked';
 
 }
 
