@@ -5,6 +5,7 @@ import {
   Student,
   UserName,
 } from './student.interface';
+import validator from 'validator';
 
 const userNameSchema = new Schema<UserName>({
   firstName: {
@@ -13,23 +14,28 @@ const userNameSchema = new Schema<UserName>({
     trim: true,
     maxlength: [20, 'First name must be less than 20 characters'],
     validate: {
-        validator: function(value: string) { 
-            const firstNameStr = value.charAt(0).toUpperCase() + value.slice(1);
-            return firstNameStr === value;
-        },
-        message: '{VALUE} is not in Capitalized'
-    }
+      validator: function (value: string) {
+        const firstNameStr = value.charAt(0).toUpperCase() + value.slice(1);
+        return firstNameStr === value;
+      },
+      message: '{VALUE} is not in Capitalized',
+    },
   },
   middleName: {
     type: String,
     trim: true,
     maxlength: [20, 'Middle name must be less than 20 characters'],
+    
   },
   lastName: {
     type: String,
     required: [true, 'Last name is required'],
     trim: true,
     maxlength: [20, 'Last name must be less than 20 characters'],
+    validate: {
+      validator: (value: string) => validator.isAlpha(value),
+      message: '{VALUE} is not valid',
+    },
   },
 });
 
