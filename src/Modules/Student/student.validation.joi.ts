@@ -28,7 +28,7 @@ const userNameSchema = Joi.object({
 });
 
 // Joi schema for Guardian
-const guardianSchema = Joi.object({
+const guardianValidationSchema = Joi.object({
   fatherName: Joi.string().trim().max(20).required().messages({
     'string.empty': "Father's name is required",
     'string.max': "Father's name must be less than 20 characters",
@@ -64,7 +64,7 @@ const guardianSchema = Joi.object({
 });
 
 // Joi schema for LocalGuardian
-const localGuardianSchema = Joi.object({
+const localGuardianValidationSchema = Joi.object({
   name: Joi.string().trim().max(20).required().messages({
     'string.empty': "Local guardian's name is required",
     'string.max': 'Name must be less than 20 characters',
@@ -87,7 +87,7 @@ const localGuardianSchema = Joi.object({
 });
 
 // Joi schema for Student
-const studentValidationSchema = Joi.object({
+const studentJOIValidationSchema = Joi.object({
   id: Joi.string().required().messages({
     'string.empty': 'Student ID is required',
   }),
@@ -121,14 +121,14 @@ const studentValidationSchema = Joi.object({
   permanentAddress: Joi.string().trim().required().messages({
     'string.empty': 'Permanent address is required',
   }),
-  guardian: guardianSchema.required().messages({
+  guardian: guardianValidationSchema.required().messages({
     'object.base': 'Guardian information is required',
   }),
-  localGuardian: localGuardianSchema.required().messages({
+  localGuardian: localGuardianValidationSchema.required().messages({
     'object.base': 'Local guardian information is required',
   }),
   profileImg: Joi.string().optional(),
   isActive: Joi.string().valid('active', 'blocked').default('active'),
 });
 
-export default studentValidationSchema
+export default studentJOIValidationSchema
