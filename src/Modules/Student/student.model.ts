@@ -117,7 +117,6 @@ const studentSchema = new Schema<TStudent, StudentModel, StudentMethods>({
   password: {
     type: String,
     required: [true, 'Password is required'],
-    unique: true,
     maxlength: [20, 'Password must be less than 20 characters'],
   },
   name: { type: userNameSchema, required: [true, 'Name is required'] },
@@ -172,6 +171,10 @@ const studentSchema = new Schema<TStudent, StudentModel, StudentMethods>({
     enum: ['active', 'blocked'],
     default: 'active',
   },
+  isDeleted:{
+    type:Boolean,
+    default:false
+  }
 });
 
 //Pre save middle ware /hooks
@@ -184,8 +187,10 @@ studentSchema.pre('save', async function (next) {
 })
 
 //Post save middle ware /hooks
-studentSchema.post('save', function(){
-  console.log(this, 'Post Hook')
+studentSchema.post('save', function(doc, next){
+  // console.log(this, 'Post Hook')
+  doc.password = ''
+  next();
 })
 
 studentSchema.methods.isUserExists = async function(id : string){
