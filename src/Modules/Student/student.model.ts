@@ -175,7 +175,17 @@ const studentSchema = new Schema<TStudent, StudentModel, StudentMethods>({
     type:Boolean,
     default:false
   }
+},
+{
+  toJSON: { virtuals: true },
 });
+
+
+//virtuals
+
+studentSchema.virtual('fullName').get(function(){
+  return (this.name.firstName + ' ' + this.name.middleName + ' ' + this.name.lastName)
+})
 
 //Pre save middle ware /hooks
 studentSchema.pre('save', async function (next) {
