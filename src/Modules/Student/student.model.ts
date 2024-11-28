@@ -191,7 +191,25 @@ studentSchema.post('save', function(doc, next){
   // console.log(this, 'Post Hook')
   doc.password = ''
   next();
+});
+
+studentSchema.pre('find',  function (next) {
+  this.find({isDeleted: { $ne: true }})
+  next();
+
 })
+studentSchema.pre('findOne',  function (next) {
+  this.find({isDeleted: { $ne: true }})
+  next();
+
+})
+studentSchema.pre('aggregate',  function (next) {
+  this.pipeline().unshift({ $match: { isDeleted: { $ne: true }}})
+  next();
+
+})
+
+
 
 studentSchema.methods.isUserExists = async function(id : string){
   const existingUser = await Student.findOne({id})
