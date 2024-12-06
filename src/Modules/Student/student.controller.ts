@@ -2,9 +2,6 @@ import { Request, Response } from 'express';
 import { StudentServices } from './student.service';
 import studentValidationSchema from './student.validation';
 
-
-
-
 const getStudents = async (req: Request, res: Response) => {
   try {
     const result = await StudentServices.getStudentsFromDB();
@@ -13,7 +10,7 @@ const getStudents = async (req: Request, res: Response) => {
       message: 'Students are retrieved successfully',
       data: result,
     });
-  } catch (err : any) {
+  } catch (err: any) {
     res.status(500).json({
       success: false,
       message: err.message || 'Something went wrong',
@@ -31,7 +28,7 @@ const getSingleStudent = async (req: Request, res: Response) => {
       message: 'Student is retrieved successfully',
       data: result,
     });
-  } catch (err : any) {
+  } catch (err: any) {
     res.status(500).json({
       success: false,
       message: err.message || 'Something went wrong',
@@ -48,7 +45,7 @@ const deleteStudent = async (req: Request, res: Response) => {
       message: 'Student is retrieved successfully',
       data: result,
     });
-  } catch (err : any) {
+  } catch (err: any) {
     res.status(500).json({
       success: false,
       message: err.message || 'Something went wrong',
@@ -58,8 +55,7 @@ const deleteStudent = async (req: Request, res: Response) => {
 };
 
 export const StudentControllers = {
-  
   getStudents,
   getSingleStudent,
-  deleteStudent
+  deleteStudent,
 };

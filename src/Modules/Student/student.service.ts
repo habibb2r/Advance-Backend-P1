@@ -1,7 +1,4 @@
-
 import { Student } from './student.model';
-
-
 
 const getStudentsFromDB = async () => {
   const result = await Student.find();
@@ -10,9 +7,7 @@ const getStudentsFromDB = async () => {
 
 const getSingleStudent = async (id: string) => {
   // const result = await Student.findOne({ id });
-  const result = await Student.aggregate([
-    {$match: { id: id}}
-  ])
+  const result = await Student.aggregate([{ $match: { id: id } }]);
   return result;
 };
 
@@ -23,5 +18,5 @@ const deleteStudentFromDB = async (id: string) => {
 export const StudentServices = {
   getStudentsFromDB,
   getSingleStudent,
-  deleteStudentFromDB
+  deleteStudentFromDB,
 };

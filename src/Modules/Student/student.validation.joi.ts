@@ -37,14 +37,10 @@ const guardianValidationSchema = Joi.object({
     'string.empty': "Father's occupation is required",
     'string.max': 'Occupation must be less than 20 characters',
   }),
-  fatherContactNo: Joi.string()
-    .trim()
-    .length(11)
-    .required()
-    .messages({
-      'string.empty': "Father's contact number is required",
-      'string.length': "Father's contact number must be 11 digits",
-    }),
+  fatherContactNo: Joi.string().trim().length(11).required().messages({
+    'string.empty': "Father's contact number is required",
+    'string.length': "Father's contact number must be 11 digits",
+  }),
   motherName: Joi.string().trim().max(20).required().messages({
     'string.empty': "Mother's name is required",
     'string.max': "Mother's name must be less than 20 characters",
@@ -53,14 +49,10 @@ const guardianValidationSchema = Joi.object({
     'string.empty': "Mother's occupation is required",
     'string.max': 'Occupation must be less than 20 characters',
   }),
-  motherContactNo: Joi.string()
-    .trim()
-    .length(11)
-    .required()
-    .messages({
-      'string.empty': "Mother's contact number is required",
-      'string.length': "Mother's contact number must be 11 digits",
-    }),
+  motherContactNo: Joi.string().trim().length(11).required().messages({
+    'string.empty': "Mother's contact number is required",
+    'string.length': "Mother's contact number must be 11 digits",
+  }),
 });
 
 // Joi schema for LocalGuardian
@@ -73,14 +65,10 @@ const localGuardianValidationSchema = Joi.object({
     'string.empty': "Local guardian's occupation is required",
     'string.max': 'Occupation must be less than 20 characters',
   }),
-  contactNo: Joi.string()
-    .trim()
-    .length(11)
-    .required()
-    .messages({
-      'string.empty': "Local guardian's contact number is required",
-      'string.length': 'Contact number must be 11 digits',
-    }),
+  contactNo: Joi.string().trim().length(11).required().messages({
+    'string.empty': "Local guardian's contact number is required",
+    'string.length': 'Contact number must be 11 digits',
+  }),
   address: Joi.string().trim().required().messages({
     'string.empty': "Local guardian's address is required",
   }),
@@ -94,13 +82,10 @@ const studentJOIValidationSchema = Joi.object({
   name: userNameSchema.required().messages({
     'object.base': 'Name is required',
   }),
-  gender: Joi.string()
-    .valid('Male', 'Female')
-    .required()
-    .messages({
-      'any.only': '{#label} is not a valid gender',
-      'string.empty': 'Gender is required',
-    }),
+  gender: Joi.string().valid('Male', 'Female').required().messages({
+    'any.only': '{#label} is not a valid gender',
+    'string.empty': 'Gender is required',
+  }),
   dateOfBirth: Joi.string().optional(),
   email: Joi.string().email().required().messages({
     'string.empty': 'Email is required',
@@ -114,7 +99,9 @@ const studentJOIValidationSchema = Joi.object({
     'string.empty': 'Emergency contact is required',
     'string.length': 'Emergency contact number must be 11 digits',
   }),
-  bloodGroup: Joi.string().valid('A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-').optional(),
+  bloodGroup: Joi.string()
+    .valid('A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-')
+    .optional(),
   presentAddress: Joi.string().trim().required().messages({
     'string.empty': 'Present address is required',
   }),
@@ -131,4 +118,4 @@ const studentJOIValidationSchema = Joi.object({
   isActive: Joi.string().valid('active', 'blocked').default('active'),
 });
 
-export default studentJOIValidationSchema
+export default studentJOIValidationSchema;
