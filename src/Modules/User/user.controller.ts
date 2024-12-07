@@ -3,16 +3,11 @@ import httpStatus from 'http-status-codes';
 import { NextFunction, Request, Response } from 'express';
 import { UserServices } from './user.service';
 import sendResponse from '../../Utils/sendResponse';
-import { RequestHandler } from 'express-serve-static-core';
+import catchAsync from '../../Utils/catchAsync';
 
-const catchAsync = (fn: RequestHandler) => {
-  return (req: Request, res: Response, next: NextFunction) => {
-    Promise.resolve(fn(req, res, next)).catch((err) => next(err));
-  };
-};
 
 const createStudent = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (req, res,) => {
     const { password, student: studentData } = req.body;
     // const zodValidationData = studentValidationSchema.parse(studentData)
     const result = await UserServices.createStudentIntoDB(

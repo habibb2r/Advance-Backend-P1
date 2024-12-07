@@ -1,17 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import httpStatus from 'http-status-codes';
-import { NextFunction, Request, RequestHandler, Response } from 'express';
 import { StudentServices } from './student.service';
 import sendResponse from '../../Utils/sendResponse';
+import catchAsync from '../../Utils/catchAsync';
 
-const catchAsync = (fn: RequestHandler) => {
-  return (req: Request, res: Response, next: NextFunction) => {
-    Promise.resolve(fn(req, res, next)).catch((err) => next(err));
-  };
-};
 
 const getStudents = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (req, res) => {
     const result = await StudentServices.getStudentsFromDB();
     sendResponse(res, {
       statusCode: httpStatus.OK,
@@ -23,7 +18,7 @@ const getStudents = catchAsync(
 );
 
 const getSingleStudent = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (req, res) => {
     const { studentId } = req.params;
     const result = await StudentServices.getSingleStudent(studentId);
     sendResponse(res, {
@@ -35,7 +30,7 @@ const getSingleStudent = catchAsync(
   },
 );
 const deleteStudent = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (req, res) => {
     const { studentId } = req.params;
     const result = await StudentServices.deleteStudentFromDB(studentId);
     sendResponse(res, {
