@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 
 import express, { Application, NextFunction, Request, Response, } from 'express';
 import cors from 'cors';
 import { StudentRoutes } from './Modules/Student/student.route';
 import { UserRoutes } from './Modules/User/user.route';
 import globalErrorHandler from './Middlewares/globalErrorHandler';
+import notFound from './Middlewares/notFound';
+import sendResponse from './Utils/sendResponse';
 const app: Application = express();
 
 //parser
@@ -26,4 +28,7 @@ app.get('/', (req: Request, res: Response) => {
 
 
 app.use(globalErrorHandler)
+app.use(notFound)
+
+
 export default app;
