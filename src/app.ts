@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
 
-
-import express, { Application, NextFunction, Request, Response, } from 'express';
+import express, { Application, NextFunction, Request, Response } from 'express';
 import cors from 'cors';
 import { StudentRoutes } from './Modules/Student/student.route';
 import { UserRoutes } from './Modules/User/user.route';
@@ -21,15 +20,11 @@ app.use(cors());
 
 app.use('/api/v1', router);
 
-
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!');
 });
 
-
-
-app.use(globalErrorHandler)
-app.use(notFound)
-
+app.use(globalErrorHandler);
+app.use(notFound);
 
 export default app;

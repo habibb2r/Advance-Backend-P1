@@ -1,26 +1,29 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import httpStatus from 'http-status-codes';
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Request, RequestHandler, Response } from 'express';
 import { StudentServices } from './student.service';
 import sendResponse from '../../Utils/sendResponse';
 
+const catchAsync = (fn: RequestHandler) => {
+  return (req: Request, res: Response, next: NextFunction) => {
+    Promise.resolve(fn(req, res, next)).catch((err) => next(err));
+  };
+};
 
-const getStudents = async (req: Request, res: Response, next: NextFunction) => {
-  try {
+const getStudents = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
     const result = await StudentServices.getStudentsFromDB();
     sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
       message: 'Students retrived successfully',
       data: result,
+    });
+  },
+);
 
-    })
-  } catch (err) {
-   next(err)
-  }
-};
-
-const getSingleStudent = async (req: Request, res: Response, next: NextFunction) => {
-  try {
+const getSingleStudent = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
     const { studentId } = req.params;
     const result = await StudentServices.getSingleStudent(studentId);
     sendResponse(res, {
@@ -28,14 +31,11 @@ const getSingleStudent = async (req: Request, res: Response, next: NextFunction)
       success: true,
       message: 'Student Retrieved successfully',
       data: result,
-
-    })
-  } catch (err) {
-    next(err)
-  }
-};
-const deleteStudent = async (req: Request, res: Response, next: NextFunction) => {
-  try {
+    });
+  },
+);
+const deleteStudent = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
     const { studentId } = req.params;
     const result = await StudentServices.deleteStudentFromDB(studentId);
     sendResponse(res, {
@@ -43,12 +43,9 @@ const deleteStudent = async (req: Request, res: Response, next: NextFunction) =>
       success: true,
       message: 'Student deleted successfully',
       data: result,
-
-    })
-  } catch (err) {
-   next(err)
-  }
-};
+    });
+  },
+);
 
 export const StudentControllers = {
   getStudents,

@@ -1,6 +1,6 @@
 import { model, Schema } from 'mongoose';
 import { TUser } from './user.interface';
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcrypt';
 import config from '../../config';
 
 const userSchema = new Schema<TUser>(
@@ -37,7 +37,6 @@ const userSchema = new Schema<TUser>(
   },
 );
 
-
 //Pre save middle ware /hooks
 userSchema.pre('save', async function (next) {
   // console.log(this, 'Pre Hook')
@@ -53,6 +52,5 @@ userSchema.post('save', function (doc, next) {
   doc.password = '';
   next();
 });
-
 
 export const User = model<TUser>('User', userSchema);

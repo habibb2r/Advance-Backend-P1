@@ -9,7 +9,6 @@ import {
 } from './student.interface';
 import validator from 'validator';
 
-
 const userNameSchema = new Schema<TUserName>({
   firstName: {
     type: String,
@@ -188,7 +187,6 @@ studentSchema.virtual('fullName').get(function () {
     this.name.firstName + ' ' + this.name.middleName + ' ' + this.name.lastName
   );
 });
-
 
 studentSchema.pre('find', function (next) {
   this.find({ isDeleted: { $ne: true } });
