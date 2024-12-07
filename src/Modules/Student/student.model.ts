@@ -8,8 +8,7 @@ import {
   TUserName,
 } from './student.interface';
 import validator from 'validator';
-import bcrypt from 'bcrypt';
-import config from '../../config';
+
 
 const userNameSchema = new Schema<TUserName>({
   firstName: {
@@ -120,11 +119,6 @@ const studentSchema = new Schema<TStudent, StudentModel, StudentMethods>(
       unique: true,
       ref: 'User',
     },
-    password: {
-      type: String,
-      required: [true, 'Password is required'],
-      maxlength: [20, 'Password must be less than 20 characters'],
-    },
     name: { type: userNameSchema, required: [true, 'Name is required'] },
     gender: {
       type: String,
@@ -195,21 +189,6 @@ studentSchema.virtual('fullName').get(function () {
   );
 });
 
-//Pre save middle ware /hooks
-studentSchema.pre('save', async function (next) {
-  // console.log(this, 'Pre Hook')
-  // eslint-disable-next-line @typescript-eslint/no-this-alias
-  const user = this;
-  user.password = await bcrypt.hash(user.password, Number(config.bcrypt_salt));
-  next();
-});
-
-//Post save middle ware /hooks
-studentSchema.post('save', function (doc, next) {
-  // console.log(this, 'Post Hook')
-  doc.password = '';
-  next();
-});
 
 studentSchema.pre('find', function (next) {
   this.find({ isDeleted: { $ne: true } });
