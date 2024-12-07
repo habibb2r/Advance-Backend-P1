@@ -9,6 +9,7 @@ import { UserRoutes } from './Modules/User/user.route';
 import globalErrorHandler from './Middlewares/globalErrorHandler';
 import notFound from './Middlewares/notFound';
 import sendResponse from './Utils/sendResponse';
+import router from './Routes';
 const app: Application = express();
 
 //parser
@@ -18,8 +19,8 @@ app.use(cors());
 
 //routes
 
-app.use('/api/v1/students', StudentRoutes);
-app.use('/api/v1/users', UserRoutes);
+app.use('/api/v1', router);
+
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!');
